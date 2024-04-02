@@ -65,7 +65,7 @@ def main():
 
     # Load the validation set to access class names
     validation_set = tf.keras.utils.image_dataset_from_directory(
-        'valid',
+        'data',
         labels="inferred",
         label_mode="categorical",
         class_names=None,
