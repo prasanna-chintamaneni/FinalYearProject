@@ -92,7 +92,7 @@ def main():
 
         # Make prediction and display result
         if st.button("Classify"):
-            st.write("Classifying...")
+            st.write("Classified Disease")
             prediction = predict_disease(image)
             class_name = class_names[prediction]
             st.success(f"Predicted Disease: {class_name}")
