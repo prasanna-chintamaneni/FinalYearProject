@@ -10,7 +10,7 @@ model = tf.keras.models.load_model('trained_plant_disease_model.h5')
 # Function to preprocess the image
 def preprocess_image(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image = cv2.resize(image, (128, 128))  # Resize image to 128x128
+    image = cv2.resize(image, (128, 128)) 
     image = image.astype("float") / 255.0
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
@@ -27,32 +27,50 @@ def predict_disease(image):
 def predict_fertilizer(disease):
     # Define a mapping between disease and fertilizer
     fertilizer_mapping = {
-        'Tomato___Bacterial_spot': 'Ammonium Nitrate',
-        'Tomato___Early_blight': 'Triple Superphosphate',
-        'Tomato___Late_blight': 'Calcium Nitrate',
-        'Tomato___Leaf_mold': 'Potassium Sulfate',
-        'Tomato___Septoria_leaf_spot': 'Potassium Nitrate',
-        'Tomato___Spider_mites': 'Urea',
-        'Tomato___Target_spot': 'Diammonium Phosphate',
-        'Tomato___Yellow_leaf_curl_virus': 'Magnesium Sulfate',
-        'Potato___Bacterial_spot': 'Sulphate of Potash',
-        'Potato___Early_blight': 'Ammonium Phosphate',
-        'Potato___Late_blight': 'Potassium Chloride',
-        'Potato___Leaf_mold': 'Urea',
-        'Potato___Septoria_leaf_spot': 'Calcium Ammonium Nitrate',
-        'Potato___Spider_mites': 'Monoammonium Phosphate',
-        'Potato___Target_spot': 'Ammonium Sulfate',
-        'Potato___Yellow_leaf_curl_virus': 'Potassium Sulfate',
-        'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot': 'Nitrogen, Phosphorus, Potassium (NPK) Fertilizer',
-        'Corn___Bacterial_spot': 'Urea',
-        'Corn___Early_blight': 'Ammonium Nitrate',
-        'Corn___Late_blight': 'Potassium Sulfate',
-        'Corn___Leaf_mold': 'Calcium Nitrate',
-        'Corn___Septoria_leaf_spot': 'Triple Superphosphate',
-        'Corn___Spider_mites': 'Diammonium Phosphate',
-        'Corn___Target_spot': 'Magnesium Sulfate',
-        'Corn___Yellow_leaf_curl_virus': 'Sulphate of Potash',
-    }
+    'Apple___Apple_scab': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Apple___Black_rot': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Apple___Cedar_apple_rust': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Apple___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Blueberry___healthy': 'Acidic Fertilizer for Acid-Loving Plants',
+    'Cherry_(including_sour)___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Cherry_(including_sour)___Powdery_mildew': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot': 'Nitrogen, Phosphorus, Potassium (NPK) Fertilizer',
+    'Corn_(maize)___Common_rust_': 'Urea Fertilizer',
+    'Corn_(maize)___Early_blight': 'Ammonium Nitrate Fertilizer',
+    'Corn_(maize)___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Corn_(maize)___Northern_Leaf_Blight': 'Potassium Sulfate Fertilizer',
+    'Grape___Black_rot': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Grape___Esca_(Black_Measles)': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Grape___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Orange___Haunglongbing_(Citrus_greening)': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Peach___Bacterial_spot': 'Sulphate of Potash Fertilizer',
+    'Peach___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Pepper,_bell___Bacterial_spot': 'Potassium Nitrate Fertilizer',
+    'Pepper,_bell___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Potato___Early_blight': 'Ammonium Phosphate Fertilizer',
+    'Potato___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Potato___Late_blight': 'Potassium Chloride Fertilizer',
+    'Potato___Leaf_mold': 'Urea Fertilizer',
+    'Potato___Septoria_leaf_spot': 'Calcium Ammonium Nitrate Fertilizer',
+    'Potato___Spider_mites': 'Monoammonium Phosphate Fertilizer',
+    'Potato___Target_spot': 'Ammonium Sulfate Fertilizer',
+    'Potato___Yellow_leaf_curl_virus': 'Potassium Sulfate Fertilizer',
+    'Raspberry___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Soybean___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Squash___Powdery_mildew': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Strawberry___healthy': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Strawberry___Leaf_scorch': 'Balanced N-P-K Fertilizer with Micronutrients',
+    'Tomato___Bacterial_spot': 'Ammonium Nitrate Fertilizer',
+    'Tomato___Early_blight': 'Triple Superphosphate Fertilizer',
+    'Tomato___Late_blight': 'Calcium Nitrate Fertilizer',
+    'Tomato___Leaf_mold': 'Potassium Sulfate Fertilizer',
+    'Tomato___Septoria_leaf_spot': 'Potassium Nitrate Fertilizer',
+    'Tomato___Spider_mites': 'Urea Fertilizer',
+    'Tomato___Target_spot': 'Diammonium Phosphate Fertilizer',
+    'Tomato___Yellow_leaf_curl_virus': 'Magnesium Sulfate Fertilizer',
+}
+
     # Lookup the fertilizer based on the predicted disease
     return fertilizer_mapping.get(disease, 'Unknown fertilizer')
 
